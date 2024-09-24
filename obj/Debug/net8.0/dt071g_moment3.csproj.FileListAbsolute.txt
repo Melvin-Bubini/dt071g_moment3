@@ -1,0 +1,14 @@
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\bin\Debug\net8.0\dt071g_moment3.exe
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\bin\Debug\net8.0\dt071g_moment3.deps.json
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\bin\Debug\net8.0\dt071g_moment3.runtimeconfig.json
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\bin\Debug\net8.0\dt071g_moment3.dll
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\bin\Debug\net8.0\dt071g_moment3.pdb
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.AssemblyInfoInputs.cache
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.AssemblyInfo.cs
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.csproj.CoreCompileInputs.cache
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.dll
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\refint\dt071g_moment3.dll
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.pdb
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.genruntimeconfig.cache
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\ref\dt071g_moment3.dll
