@@ -32,6 +32,7 @@ namespace dt071g_moment3
 
     public class Post
     {
+        private static List<GuestbookEntry> guestbookEntries = new List<GuestbookEntry>();
         public static void AddPost()
         {
             Console.Clear();
@@ -68,8 +69,10 @@ namespace dt071g_moment3
                 // Skapar en instans av GuestbookEntry och tilldelar name och message
                 GuestbookEntry entry = new GuestbookEntry(nameInput, messageInput);
 
-                // Lägg till logik för att spara posten här
-
+               // Lägg till inlägget i listan
+               guestbookEntries.Add(entry);
+               Console.WriteLine("Inlägget har lagts till i gästboken");
+                
                 break;
             }
             // Rensa konsolen efter varje menyval
