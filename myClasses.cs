@@ -51,7 +51,7 @@ namespace dt071g_moment3
 
                 /* Använder regex för att kontrollera om namnet innehåller endast bokstäver
                 Regex: ^[a-zA-ZåäöÅÄÖ]+$ tillåter endast bokstäver (inklusive svenska bokstäver)*/
-                if (!Regex.IsMatch(nameInput, @"^[a-zA-ZåäöÅÄÖ]+$"))
+                if (!Regex.IsMatch(nameInput, @"^[a-zA-ZåäöÅÄÖ\s]+$"))
                 {
                     Console.WriteLine("Namnet får endast innehålla bokstäver. Försök igen.");
                     continue;
@@ -69,15 +69,60 @@ namespace dt071g_moment3
                 // Skapar en instans av GuestbookEntry och tilldelar name och message
                 GuestbookEntry entry = new GuestbookEntry(nameInput, messageInput);
 
-               // Lägg till inlägget i listan
-               guestbookEntries.Add(entry);
-               Console.WriteLine("Inlägget har lagts till i gästboken");
-                
+                // Lägg till inlägget i listan
+                guestbookEntries.Add(entry);
+                Console.WriteLine("Inlägget har lagts till i gästboken");
+
                 break;
             }
             // Rensa konsolen efter varje menyval
             Console.Clear();
         }
 
+        public static void ShowPosts(bool waitForInput = true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Alla nuvarande inlägg: ");
+            if (guestbookEntries.Count == 0)
+            {
+                Console.WriteLine("Det finns inga nuvarande inlägg");
+            }
+            else
+            {
+                for (int i = 0; i < guestbookEntries.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {guestbookEntries[i].Name} - {guestbookEntries[i].Message}");
+                }
+            }
+
+            if (waitForInput)
+            {
+                Console.Write("Tryck på valfri tangent för att återgå till menyn: ");
+                Console.ReadKey();
+                Console.Clear();
+            }
+
+        }
+
+        public static void DeletePost()
+        {
+            ShowPosts(false); // Visar inlägg utan att vänta på tangenttryckning
+            Console.Write("Skriv numret på det inlägg du vill ta bort: ");
+            if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= guestbookEntries.Count)
+            {
+                guestbookEntries.RemoveAt(index - 1);
+                Console.WriteLine($"Inlägg {index} togs bort");
+            }
+            else
+            {
+                Console.WriteLine("Ogiltigt nummer");
+            }
+            Console.Write("Tryck på valfri tangent för att återgå till menyn: ");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
     }
+
 }

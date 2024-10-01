@@ -12,3 +12,4 @@ C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\refint\dt071g_
 C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.pdb
 C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.genruntimeconfig.cache
 C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\ref\dt071g_moment3.dll
+C:\Users\melvi\OneDrive\Skrivbord\dt071g_moment3\obj\Debug\net8.0\dt071g_moment3.sourcelink.json

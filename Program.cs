@@ -12,6 +12,7 @@ class Program
 
             if (string.IsNullOrEmpty(input))
             {
+                Console.Clear();
                 Console.WriteLine("Du måste ange 1, 2, 3 eller x");
                 continue;
             }
@@ -21,12 +22,10 @@ class Program
                     Post.AddPost();
                     break;
                 case "2":
-                    // Lägg till koden för att visa inlägg
-                    // Post.ShowPosts();
+                    Post.DeletePost();
                     break;
                 case "3":
-                    // Lägg till koden för att ta bort inlägg
-                    // Post.DeletePost();
+                    Post.ShowPosts();
                     break;
                 case "X":
                 case "x":
