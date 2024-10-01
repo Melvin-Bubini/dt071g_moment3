@@ -4,6 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
+
+        Guestbook guestbook = new Guestbook();
+
+        // Ladda tidigare inlägg från filen
+        guestbook.LoadFromFile();
+
         while (true)
         {
             Menu.MenuPrint();
@@ -19,13 +25,13 @@ class Program
             switch (input)
             {
                 case "1":
-                    Post.AddPost();
+                    Post.AddPost(guestbook); // Skicka med guestbook
                     break;
                 case "2":
-                    Post.DeletePost();
+                    Post.DeletePost(guestbook); // Skicka med guestbook
                     break;
                 case "3":
-                    Post.ShowPosts();
+                    Post.ShowPosts(guestbook); // Skicka med guestbook
                     break;
                 case "X":
                 case "x":

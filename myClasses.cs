@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Text.Json;
 
 namespace dt071g_moment3
 {
@@ -6,12 +7,11 @@ namespace dt071g_moment3
     {
         public static void MenuPrint()
         {
-            Console.WriteLine("");
-            Console.WriteLine("M E L V I N ' S  G U E S T B O O K");
-            Console.WriteLine("");
+            Console.WriteLine("M E L V I N ' S  G U E S T B O O K\n\n");
+
             Console.WriteLine("1. Skriv i gästboken");
             Console.WriteLine("2. Ta bort inlägg");
-            Console.WriteLine("3. Visa alla inlägg");
+            Console.WriteLine("3. Visa alla inlägg\n");
             Console.WriteLine("X. Avsluta");
 
         }
@@ -29,11 +29,83 @@ namespace dt071g_moment3
         }
     }
 
+    public class Guestbook
+    {
+        private string filename = @"guestbook.json";  // Privat instansvariabel för filnamnet
+        private List<GuestbookEntry> guestbookEntries = new List<GuestbookEntry>(); // Privat lista för att lagra inlägg
+
+
+        // Spara alla inlägg som JSON
+        public void SaveToFile()
+        {
+            string jsonData = JsonSerializer.Serialize(guestbookEntries);
+            File.WriteAllText(filename, jsonData);
+        }
+
+        // Läs inlägg från JSON-fil
+        public void LoadFromFile()
+        {
+            if (File.Exists(filename))
+            {
+                string jsonData = File.ReadAllText(filename);
+                guestbookEntries = JsonSerializer.Deserialize<List<GuestbookEntry>>(jsonData) ?? new List<GuestbookEntry>();
+            }
+        }
+
+        // Lägga till ett nytt inlägg i listan
+        public void AddEntry(GuestbookEntry entry)
+        {
+            guestbookEntries.Add(entry);
+        }
+
+        // Ta bort ett inlägg från listan
+        public void RemoveEntry(int index)
+        {
+            if (index >= 0 && index < guestbookEntries.Count)
+            {
+                guestbookEntries.RemoveAt(index);
+            }
+        }
+
+        // Hämta antal inlägg
+        public int GetEntryCount()
+        {
+            return guestbookEntries.Count;
+        }
+
+
+        //Visa alla inlägg
+        public void ShowPosts(bool waitForInput = true)
+        {
+            Console.Clear();
+            Console.WriteLine("Alla nuvarande inlägg: ");
+            if (guestbookEntries.Count == 0)
+            {
+                Console.WriteLine("Det finns inga nuvarande inlägg");
+            }
+            else
+            {
+                for (int i = 0; i < guestbookEntries.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {guestbookEntries[i].Name} - {guestbookEntries[i].Message}");
+                }
+            }
+
+            if (waitForInput)
+            {
+                Console.Write("Tryck på valfri tangent för att återgå till menyn: ");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+    }
+
+
 
     public class Post
     {
-        private static List<GuestbookEntry> guestbookEntries = new List<GuestbookEntry>();
-        public static void AddPost()
+
+        public static void AddPost(Guestbook guestbook)
         {
             Console.Clear();
 
@@ -72,49 +144,33 @@ namespace dt071g_moment3
                 // Skapar en instans av GuestbookEntry och tilldelar name och message
                 GuestbookEntry entry = new GuestbookEntry(nameInput, messageInput);
 
-                // Lägg till inlägget i listan
-                guestbookEntries.Add(entry);
+                //Lägg till inlägget i listan
+                guestbook.AddEntry(entry);
+                guestbook.SaveToFile();    // Spara efter att ha lagt till inlägget
+
+
                 Console.WriteLine("Inlägget har lagts till i gästboken");
 
                 break;
             }
-            // Rensa konsolen efter varje menyval
+            //Rensa konsolen efter varje menyval
             Console.Clear();
         }
 
-        public static void ShowPosts(bool waitForInput = true) // Skickar med en bool ifall man ska vänta på input
+        public static void ShowPosts(Guestbook guestbook, bool waitForInput = true)
         {
-            Console.Clear();
-             
-            Console.WriteLine("Alla nuvarande inlägg: ");
-            if (guestbookEntries.Count == 0)// Kollar så att det finns ilägg
-            {
-                Console.WriteLine("Det finns inga nuvarande inlägg");
-            }
-            else
-            {
-                for (int i = 0; i < guestbookEntries.Count; i++) // Skriver ut alla inlägg
-                {
-                    Console.WriteLine($"{i + 1}. {guestbookEntries[i].Name} - {guestbookEntries[i].Message}");
-                }
-            }
-
-            if (waitForInput) // Skriver ut input
-            {
-                Console.Write("Tryck på valfri tangent för att återgå till menyn: ");
-                Console.ReadKey();
-                Console.Clear();
-            }
-
+            guestbook.ShowPosts(waitForInput); // Använd Guestbook för att visa inlägg
         }
 
-        public static void DeletePost()
+        public static void DeletePost(Guestbook guestbook)
         {
-            ShowPosts(false); // Visar inlägg utan att vänta på tangenttryckning
+            guestbook.ShowPosts(false); // Visar inlägg utan att vänta på tangenttryckning
             Console.Write("Skriv numret på det inlägg du vill ta bort: ");
-            if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= guestbookEntries.Count) // Kollar på att input är korrekt
+            if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= guestbook.GetEntryCount()) // Kollar på att input är korrekt
             {
-                guestbookEntries.RemoveAt(index - 1); // Tar bort ett inlägg
+                guestbook.RemoveEntry(index - 1); // Ta bort inlägget från Guestbook
+                guestbook.SaveToFile();           // Spara efter att ha tagit bort inlägget
+
                 Console.WriteLine($"Inlägg {index} togs bort");
             }
             else
